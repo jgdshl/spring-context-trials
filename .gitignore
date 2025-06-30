@@ -1,0 +1,4 @@
+# Exclude the target folder
+/target
+# Exclude editor configuration
+/.vscode
