@@ -11,15 +11,21 @@ public class Main {
         var context = 
             new AnnotationConfigApplicationContext(ProjectConfig.class, AnotherConfig.class);
 
+            beanBasics(context);
+            wiringExample(context);
+   }
+
+    static void beanBasics(AnnotationConfigApplicationContext context) {
+        System.out.println("*** Bean Basics ***");
+
         // Register the default bean
         Parrot parrot = context.getBean(Parrot.class);
         System.out.println(parrot.sing());
 
-        // Register a bean using it's name
+        // Register a bean using its name
         var parrot2 = context.getBean("parry", Parrot.class);
         parrot2.setName("Chirp");
         System.out.println(parrot2.sing());
-        System.out.println(parrot.sing());
 
         // Register a bean dynamically
         Parrot p = new Parrot();
@@ -38,5 +44,21 @@ public class Main {
         var chicken = context.getBean(Chicken.class);
         chicken.setName("bukbuk");
         System.out.println(chicken.sing());
+ 
+    }
+
+    static void wiringExample(AnnotationConfigApplicationContext context) {
+        System.out.println("*** Wiring Examples ***");
+
+        var person = context.getBean(Person.class);
+        System.out.println("Person Bean's name : " + person.getName());
+
+        var parrot = context.getBean(Parrot.class);
+        System.out.println("Parrot Bean's name : " + parrot.getName());
+
+        System.out.println("Person bean's parrot's name : " + person.getParrot().getName());
+
+        System.out.println("Person's chicken's name : " + person.getChicken().getName());
+
     }
 }
