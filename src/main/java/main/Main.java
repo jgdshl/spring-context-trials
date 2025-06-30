@@ -5,6 +5,12 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import config.AnotherConfig;
 import config.ProjectConfig;
+import models.Comment;
+import proxies.CommentNotificationProxy;
+import proxies.EmailCommentNotificationProxy;
+import repositories.CommentRepository;
+import repositories.DBCommentRepository;
+import services.CommentService;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,6 +19,7 @@ public class Main {
 
             beanBasics(context);
             wiringExample(context);
+            serviceRepositoryProxyExample(context);
    }
 
     static void beanBasics(AnnotationConfigApplicationContext context) {
@@ -60,5 +67,20 @@ public class Main {
 
         System.out.println("Person's chicken's name : " + person.getChicken().getName());
 
+    }
+
+    static void serviceRepositoryProxyExample(AnnotationConfigApplicationContext context) {
+        // CommentRepository commentRepository = new DBCommentRepository();
+        // CommentNotificationProxy commentNotificationProxy = new EmailCommentNotificationProxy();
+        // var commentService = new CommentService(commentNotificationProxy, commentRepository);
+        
+        // Get the Bean from context 
+        var commentService = context.getBean(CommentService.class);
+
+        var comment = new Comment();
+        comment.setAuthor("@jgdshl");
+        comment.setText("I'm gonna demontrate service/proxy/repository stuff now");
+
+        commentService.publishComment(comment);
     }
 }
