@@ -6,10 +6,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import config.AnotherConfig;
 import config.ProjectConfig;
 import models.Comment;
-import proxies.CommentNotificationProxy;
-import proxies.EmailCommentNotificationProxy;
-import repositories.CommentRepository;
-import repositories.DBCommentRepository;
 import services.CommentService;
 
 public class Main {
